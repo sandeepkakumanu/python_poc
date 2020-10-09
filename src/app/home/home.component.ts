@@ -10,7 +10,9 @@ export class HomeComponent implements OnInit {
 
   constructor(private router:Router) { }
   navbar:string="DashBoard"
+  role
   ngOnInit(): void {
+    this.role=localStorage.getItem('role')
   }
 
   setvalue(e){

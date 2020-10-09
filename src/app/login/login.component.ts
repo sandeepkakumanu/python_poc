@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { PythonService } from '../python.service';
@@ -12,8 +12,8 @@ import { PythonService } from '../python.service';
 export class LoginComponent implements OnInit {
 
   loginForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+    username: new FormControl('',[Validators.required]),
+    password: new FormControl('',[Validators.required]),
   });
   logindata
   user: any = "Student"
@@ -30,19 +30,21 @@ export class LoginComponent implements OnInit {
   login(e) {
     
     if (this.user == "Student") {
-      // let obj = {
-      //   "email": e.username,
-      //   "role": 'student',
-      //   "password": e.password
-      // }
-      // this.ser.studentlogin(obj).subscribe(res => {
-      //  console.log(res);
+      let obj = {
+        "email": e.username,
+        "role": 'student',
+        "password": e.password
+      }
+      console.log(obj);
+      
+      this.ser.studentlogin(obj).subscribe(res => {
+       console.log(res);
        
-      //   this.logindata=res
-      //   localStorage.setItem('id',this.logindata.data)
-      //   localStorage.setItem('role',"Student")
-      //   this.route.navigate(['/home'])
-      // })
+        this.logindata=res
+        localStorage.setItem('id',this.logindata.data)
+        localStorage.setItem('role',"Student")
+        this.route.navigate(['/home'])
+      })
      
     } else {
       console.log(e.username);

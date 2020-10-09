@@ -13,8 +13,9 @@
                 <form [formGroup]="loginForm">
                     <input type=text class="form-control" placeholder="enter user name" formControlName="username">
                     <input type="password" class="form-control" placeholder="enter password" formControlName="password">
+                    <button class="form-control btn lbtn" (click)="login(loginForm.value)" [disabled]="loginForm.invalid">Login</button>
                 </form>
-                <button class="form-control btn lbtn" (click)="login(loginForm.value)">Login</button>
+               
                 <div class="row">
                     <p>forgot password</p>
                     <p class="ml-auto">New user Regiter</p>

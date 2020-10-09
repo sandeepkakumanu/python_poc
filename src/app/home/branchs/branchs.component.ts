@@ -22,12 +22,12 @@ export class BranchsComponent implements OnInit {
   branchForm = new FormGroup({
     branchName: new FormControl(''),
     phone_number:new FormControl(''),
-    // address: new FormGroup({
-    //   street: new FormControl(''),
-    //   city: new FormControl(''),
-    //   state: new FormControl(''),
-    //   zip: new FormControl('')
-    // })
+    address: new FormGroup({
+      street: new FormControl(''),
+      city: new FormControl(''),
+      state: new FormControl(''),
+      zip: new FormControl('')
+    })
   });
 
   // branchdataList
@@ -39,9 +39,10 @@ export class BranchsComponent implements OnInit {
   createBranch() {
     let dummy = this.branchForm.value
     let date = new Date()
+    let address=this.branchForm.value.address.street+","+this.branchForm.value.address.city+","+this.branchForm.value.address.state+","+this.branchForm.value.address.zip
     let obj = {
       "branch_name": dummy.branchName,
-      "address": JSON.stringify(dummy.address),
+      "address": address,
       "created_Date": date,
       "phone_number":dummy.phone_number,
       "room_id":1
@@ -60,8 +61,8 @@ export class BranchsComponent implements OnInit {
       console.log(this.data)
       for(let i of this.data){
         console.log(i.address);
-        let d=JSON.parse(i.address)
-        i.address=d
+        // let d=JSON.parse(i.address)
+        // i.address=d
       }
       console.log(this.data,"afterchange");
       
