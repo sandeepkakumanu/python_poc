@@ -1,0 +1,41 @@
+.maindiv{
+    margin-top: 60px;
+    padding: 20px !important;
+    background-image: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%);
+}
+.logindiv{
+    margin: 30px 90px !important;
+}
+
+.heading{
+    font-size: 27px;
+    font-weight: bolder;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+.form-control{
+    margin: 20px 0px!important;
+}
+
+img{
+    min-width: 100%;
+    height: 400px !important;
+}
+
+.login{
+    background-color: white;
+    padding: 10px;
+}
+.nopadding{
+    padding: 0px !important;
+}
+
+.cbtn{
+    background-color: #3F484A;
+    color:white;
+}
+.lbtn{
+    background-color: #02012A;
+    color:white;
+}

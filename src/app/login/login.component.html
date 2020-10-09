@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="container maindiv">
+        <div class="row">
+            <button class="btn cbtn" (click)="changeuser('Student')">Student</button>
+            <button class="btn cbtn" (click)="changeuser('Admin')">Admin</button>
+        </div>
+        <div class="row logindiv">
+            <div class="col-md-6 nopadding">
+                <img src="./assets/image1.jpg" alt="background">
+            </div>
+            <div class="col-md-6 login">
+                <p class="heading">{{user}} Login</p>
+                <form [formGroup]="loginForm">
+                    <input type=text class="form-control" placeholder="enter user name" formControlName="username">
+                    <input type="password" class="form-control" placeholder="enter password" formControlName="password">
+                </form>
+                <button class="form-control btn lbtn" (click)="login(loginForm.value)">Login</button>
+                <div class="row">
+                    <p>forgot password</p>
+                    <p class="ml-auto">New user Regiter</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

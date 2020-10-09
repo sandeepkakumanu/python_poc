@@ -1,0 +1,79 @@
+<div class="row m-4">
+    <h3>Branchs List</h3>
+    <button *ngIf="role == 'admin'" class="btn bttn ml-auto" data-toggle="modal" data-target="#exampleModalCenter">Create New Branch</button>
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Create New Branch</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                 <div class="modal-body">
+                    <form [formGroup]="branchForm">
+                        <label>Branch Name</label>
+                        <input class="form-control" placeholder="Enter Branch name" formControlName="branchName">
+                        <label>Phone Number</label>
+                        <input class="form-control" placeholder="Enter Phone name" formControlName="phone_number">
+                        <label>Address</label>
+                        <div class="address" formGroupName="address">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <input class="form-control" placeholder="Enter street name"
+                                        formControlName="street">
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <input class="form-control" placeholder="Enter city name" formControlName="city">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <input class="form-control" placeholder="Enter state name" formControlName="state">
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <input class="form-control" placeholder="Enter zip code" formControlName="zip">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div> 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="createBranch()">Create</button>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <th>Branch Id</th>
+                <th>Branch Name</th>
+                <th>Phone Number</th>
+                <th>Created On</th>
+                <th>Address</th>
+            </thead>
+            <tbody>
+                <tr  *ngFor="let b of data">
+                    <td>{{b.branch_id}}</td>
+                    <td>{{b.branch_name}}</td>
+                    <td>{{b.phone_number}}</td>
+                    <td>{{b.creation_date | date:'yyyy-MM-dd'}}</td>
+                    
+                        <td> {{b.address}}</td>
+                        <!-- <b>City</b>: {{b.address.city}}<br>
+                        <b>State</b>: {{b.address.state}}<br>
+                        <b>Zip Code</b>: {{b.address.zip}}<br> -->
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-2 col-sm-12 navbardiv">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="row">
+                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav flex-column">
+                    <div class="row icondiv">
+                        <i class="fa fa-user icon my-auto" aria-hidden="true"></i>
+                        <p class="my-auto ml-3 text">Name</p>
+                    </div>
+
+                    <li class="nav-item">
+                      <a class="nav-link" routerLink="../home/dashboard"  (click)="setvalue('DashBoard')">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" routerLink="../home/branchs" (click)="setvalue('Branchs')">Branches</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" routerLink="../home/branchs" (click)="logout()">LogOut</a>
+                    </li>
+                  </ul>
+            </div>
+          </nav>
+    </div>
+    <div class="col-md-10 col-sm-12 data">
+      <div class="row header shadow">
+          <p>{{navbar}}</p>
+      </div>
+      <div class="over">
+        <router-outlet></router-outlet>
+      </div>
+        
+    </div>
+</div>
