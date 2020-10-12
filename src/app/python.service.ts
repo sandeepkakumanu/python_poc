@@ -9,6 +9,7 @@ export class PythonService {
   }
 
   constructor(private service:HttpClient) { }
+
   getBranchList(){
     return this.service.get("http://192.168.2.141:8000/admin/api/branch/");
   }
@@ -23,6 +24,10 @@ export class PythonService {
     return this.service.get("http://192.168.2.141:8000/admin/api/studentregister/")
   }
 
+  studentById(req){
+    return this.service.get("http://192.168.2.141:8000/admin/api/studentregister/"+req+"/")
+  }
+
   createbranch(req){
     return this.service.post("http://192.168.2.141:8000/admin/api/branch/",req)
     
@@ -34,6 +39,18 @@ export class PythonService {
 
   linkValidation(req){
     return this.service.get("http://192.168.2.141:8000/admin/api/studentenroll?student_link="+req)
+  }
+
+  sigunupLink(req,data){
+    return this.service.put("http://192.168.2.141:8000/admin/api/studentregister/"+req+"/",data)
+  }
+
+  getbookingdetails(req){
+    return this.service.get("http://192.168.2.141:8000/admin/api/timeslot/?from_date="+req.from_date+"&to_date="+req.to_date+"&from_time="+req.from_time+"&to_time="+req.to_time+"&branch_id="+req.branch_id+"&room_id="+req.room_id)
+  }
+
+  bookseats(req){
+    return this.service.post("http://192.168.2.141:8000/admin/api/bookingseat/",req)
   }
 
 }

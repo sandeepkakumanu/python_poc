@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
        console.log(res);
        
         this.logindata=res
-        localStorage.setItem('id',this.logindata.data)
+        localStorage.setItem('id',JSON.stringify(this.logindata.data[0]))
         localStorage.setItem('role',"Student")
         this.route.navigate(['/home'])
       })

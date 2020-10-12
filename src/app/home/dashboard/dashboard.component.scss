@@ -5,6 +5,7 @@
     border-radius: 15px;
     margin: 10px;
     background-color: green;
+    cursor: pointer;
 }
 
 .nav-tabs{
@@ -29,4 +30,20 @@
 .bttn{
     color:white;
     background: black;
+}
+
+.selected{
+    background-color: rgb(253, 249, 0);
+}
+
+.malebooked{
+    background-color: rgb(0, 44, 126);
+}
+
+.femalebooked{
+    background-color: rgb(255, 14, 235);
+}
+
+input[type="date"],input[type="time"]{
+    margin: 5px 5px 5px 0px;
 }
