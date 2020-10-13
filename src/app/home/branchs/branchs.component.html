@@ -16,25 +16,47 @@
                     <form [formGroup]="branchForm">
                         <label>Branch Name</label>
                         <input class="form-control" placeholder="Enter Branch name" formControlName="branchName">
+                        <div *ngIf="branchForm.get('branchName').touched  && branchForm.get('branchName').errors ">
+                            <p *ngIf="branchForm.get('branchName').errors.required" class="errors">Branch name is Required</p>
+                            <p *ngIf="branchForm.get('branchName').errors.minlength" class="errors">Branch name should be minimum 6 charecters</p>
+                        </div>
                         <label>Phone Number</label>
-                        <input class="form-control" placeholder="Enter Phone name" formControlName="phone_number">
+                        <input class="form-control" placeholder="Enter Phone name" formControlName="phone_number" (keypress)="number($event.key)">
+                        <div *ngIf="branchForm.get('phone_number').touched  && branchForm.get('phone_number').errors ">
+                            <p *ngIf="branchForm.get('phone_number').errors.required" class="errors">Phone number is Required</p>
+                            <p *ngIf="branchForm.get('phone_number').errors.pattern" class="errors">Phone number should be valid</p>
+                            <p *ngIf="branchForm.get('phone_number').errors.maxlength" class="errors">Phone number should be only 10 numbers</p>
+                        </div>
                         <label>Address</label>
                         <div class="address" formGroupName="address">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <input class="form-control" placeholder="Enter street name"
                                         formControlName="street">
+                                        <div *ngIf="branchForm.get('address').get('street').touched  && branchForm.get('address').get('street').errors ">
+                                            <p *ngIf="branchForm.get('address').get('street').errors.required" class="errors">Street name is Required</p>
+                                        </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <input class="form-control" placeholder="Enter city name" formControlName="city">
+                                    <div *ngIf="branchForm.get('address').get('city').touched  && branchForm.get('address').get('city').errors ">
+                                        <p *ngIf="branchForm.get('address').get('city').errors.required" class="errors">City name is Required</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <input class="form-control" placeholder="Enter state name" formControlName="state">
+                                    <div *ngIf="branchForm.get('address').get('state').touched  && branchForm.get('address').get('state').errors ">
+                                        <p *ngIf="branchForm.get('address').get('state').errors.required" class="errors">State name is Required</p>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
-                                    <input class="form-control" placeholder="Enter zip code" formControlName="zip">
+                                    <input class="form-control" placeholder="Enter zip code" formControlName="zip" (keypress)="number($event.key)">
+                                    <div *ngIf="branchForm.get('address').get('zip').touched  && branchForm.get('address').get('zip').errors ">
+                                        <p *ngIf="branchForm.get('address').get('zip').errors.required" class="errors">Zip code is Required</p>
+                                        <p *ngIf="branchForm.get('address').get('zip').errors.maxlength || branchForm.get('address').get('zip').errors.minlength " class="errors">Zip code should be valid</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +64,7 @@
                 </div> 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="createBranch()">Create</button>
+                    <button type="button" class="btn btn-primary" (click)="createBranch()" [disabled]="branchForm.invalid">Create</button>
                 </div> 
             </div>
         </div>

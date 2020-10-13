@@ -1,26 +1,31 @@
-<div class="row">
+<div class="background row">
     <div class="container maindiv">
-        <div class="row">
-            <button class="btn cbtn" (click)="changeuser('Student')">Student</button>
-            <button class="btn cbtn" (click)="changeuser('Admin')">Admin</button>
-        </div>
-        <div class="row logindiv">
-            <div class="col-md-6 nopadding">
-                <img src="./assets/image1.jpg" alt="background">
-            </div>
-            <div class="col-md-6 login">
-                <p class="heading">{{user}} Login</p>
-                <form [formGroup]="loginForm">
-                    <input type=text class="form-control" placeholder="enter user name" formControlName="username">
-                    <input type="password" class="form-control" placeholder="enter password" formControlName="password">
-                    <button class="form-control btn lbtn" (click)="login(loginForm.value)" [disabled]="loginForm.invalid">Login</button>
-                </form>
-               
-                <div class="row">
-                    <p>forgot password</p>
-                    <p class="ml-auto">New user Regiter</p>
+            <div class="row">
+                <div class="col-md-7 d-none d-sm-none d-md-block">
+                </div>
+                <div class="col-md-5 col-sm-12 col-xs-12 col-lg-5 col-xl-5">
+                    <div class="row">
+                        <button class="btn cbtn" (click)="changeuser('Student')">Student</button>
+                        <button class="btn cbtn" (click)="changeuser('Admin')">Admin</button>
+                    </div>
+                    <div class="mt-5">
+                        <p class="heading">{{user}} Login</p>
+                        <form [formGroup]="loginForm">
+                            <input type=text class="form-control" placeholder="enter email" formControlName="username">
+                            <div *ngIf="loginForm.get('username').touched  && loginForm.get('username').errors ">
+                                <p *ngIf="loginForm.get('username').errors.required" class="errors">email is Required</p>
+                                <p *ngIf="loginForm.get('username').errors.pattern" class="errors">email should be valid</p>
+                            </div>
+                            <input type="password" class="form-control" placeholder="enter password" formControlName="password">
+                            <div *ngIf="loginForm.get('password').touched  && loginForm.get('password').errors ">
+                                <p *ngIf="loginForm.get('password').errors.required" class="errors">Password is Required</p>
+                            </div>
+                            <button class="btn lbtn" (click)="login(loginForm.value)"
+                                [disabled]="loginForm.invalid">Login</button>
+                        </form>
+                            <p>forgot password</p>  
+                    </div>         
                 </div>
             </div>
-        </div>
     </div>
 </div>

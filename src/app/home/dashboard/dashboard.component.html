@@ -56,14 +56,36 @@
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
     <div class="row">
       <div class="col-md-6 col-sm-12">
-        <p class="head">Non-AC Class Seats InFormation</p>
-        <div class='row'>
-          <div *ngFor="let s of seatsarray; let i=index" class="seat">
-            <!-- <div   [ngClass]="[s.booked ? 'class1' : '',  s.selected ? 'class1' : '']">
-
-                </div>
-                 -->
+        <p class="head">Ac Class Seats InFormation</p>
+        <h5 class="mb-3">Select branch</h5>
+        <select [(ngModel)]="selectedbranch" (change)="selectedFun()">
+          <option>--select branch--</option>
+          <option *ngFor="let b of branchs" value="{{b.branch_id}}">{{b.branch_name}}</option>
+        </select>
+        <div *ngIf="datesDisplay">
+          <h5 class="mb-3">Select Dates</h5>
+          <div class="row">
+            <input type="date"  (change)="dateSelected()" [(ngModel)]="fromdate" value="todate">
+            <input type="date"   [(ngModel)]="todate" value="todate">
           </div>
+        </div>
+        <div *ngIf="timeDisplay">
+          <h5 class="mb-3">Time slot</h5>
+          <div class="row">
+            <input type="time" id="appt" name="appt" min="09:00" max="18:00"  [(ngModel)]="fromtime" value="fromtime">
+            <input type="time" id="appt" name="appt" min="09:00" max="18:00" (change)="timeSelected()" [(ngModel)]="totime" value="totime">
+          </div>
+        </div>
+
+        
+
+        <div class='row' *ngIf="seatsDisplay">
+          <div *ngFor="let s of seatsarray; let i=index" class="seat" (click)="selected(s)" [ngClass]="[(s.booked && s.userDetails.gender=='female') ? 'femalebooked' : '', (s.booked && s.userDetails.gender=='male') ? 'malebooked' : '', s.selected ? 'selected' : '']">
+          </div>
+          <button class="btn bttn m-2" *ngIf="role=='Student'" (click)="bookseat()">Book</button>
+        </div>
+        <div *ngIf="!seatsDisplay" class="">
+
         </div>
       </div>
       <div class="col-md-6">

@@ -1,5 +1,5 @@
 <div class="row v-100 background">
-    <div *ngIf="!msgStatus" class="card mx-auto my-auto col-md-4">
+    <div *ngIf="!msgStatus" class="card mx-auto my-auto col-md-5 col-sm-12">
         <h4 class="mx-auto">SignUp</h4>
         <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
 
@@ -15,10 +15,16 @@
                 <div class="mr-2">
                     <label class="text">First Name</label>
                     <input class="form-control" type="text" formControlName="first_name">
+                    <div *ngIf="signUpForm.get('first_name').touched  && signUpForm.get('first_name').errors ">
+                        <p *ngIf="signUpForm.get('first_name').errors.required" class="errors">First Name is Required</p>
+                    </div>
                 </div>
                 <div class="mr-2">
                     <label class="text">Last Name</label>
                     <input class="form-control" type="text" formControlName="last_name">
+                    <div *ngIf="signUpForm.get('last_name').touched  && signUpForm.get('last_name').errors ">
+                        <p *ngIf="signUpForm.get('last_name').errors.required" class="errors">Last Name is Required</p>
+                    </div>
                 </div>
 
             </div>
@@ -26,15 +32,26 @@
             <div class="row">
                 <input type="radio" formControlName="gender" name="gender" value="male" class="m-2"><label>Male</label><br>
                 <input type="radio" formControlName="gender" name="gender" value="female" class="m-2"><label>Female</label><br>
+                <div *ngIf="signUpForm.get('gender').touched  && signUpForm.get('gender').errors ">
+                    <p *ngIf="signUpForm.get('gender').errors.required" class="errors">Gender is Required</p>
+                </div>
             </div>
             <div class="row">
                 <div class="mr-2">
                     <label class="text">Password</label>
                     <input class="form-control" type="password" formControlName="password">
+                    <div *ngIf="signUpForm.get('password').touched  && signUpForm.get('password').errors ">
+                        <p *ngIf="signUpForm.get('password').errors.required" class="errors">Password is Required</p>
+                        <p *ngIf="signUpForm.get('password').errors.minlength" class="errors">Password Should be min 8 charecters</p>
+                    </div>
                 </div>
-                <div class="mr-2 ml-auto">
+                <div class="mr-2">
                     <label class="text">Confirm Password</label>
                     <input class="form-control" type="password" formControlName="confirm_password">
+                    <div *ngIf="signUpForm.get('confirm_password').touched  && signUpForm.get('confirm_password').errors ">
+                        <p *ngIf="signUpForm.get('confirm_password').errors.required" class="errors">Password is Required</p>
+                        <p *ngIf="signUpForm.get('confirm_password').errors.minlength" class="errors">Password Should be min 8 charecters</p>
+                    </div>
                 </div>
 
             </div>
@@ -43,22 +60,34 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <input class="form-control" placeholder="Enter street name" formControlName="street">
+                        <div *ngIf="signUpForm.get('address').get('street').touched  && signUpForm.get('address').get('street').errors ">
+                            <p *ngIf="signUpForm.get('address').get('street').errors.required" class="errors">Street is Required</p>
+                        </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <input class="form-control" placeholder="Enter city name" formControlName="city">
+                        <div *ngIf="signUpForm.get('address').get('city').touched  && signUpForm.get('address').get('city').errors ">
+                            <p *ngIf="signUpForm.get('address').get('city').errors.required" class="errors">City is Required</p>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <input class="form-control" placeholder="Enter state name" formControlName="state">
+                        <div *ngIf="signUpForm.get('address').get('state').touched  && signUpForm.get('address').get('state').errors ">
+                            <p *ngIf="signUpForm.get('address').get('state').errors.required" class="errors">State is Required</p>
+                        </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <input class="form-control" placeholder="Enter zip code" formControlName="zip">
+                        <div *ngIf="signUpForm.get('address').get('zip').touched  && signUpForm.get('address').get('zip').errors ">
+                            <p *ngIf="signUpForm.get('address').get('zip').errors.required" class="errors">Zip is Required</p>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <button class="btn bttn mx-auto" type="submit">SignUp</button>
+                <button class="btn bttn mx-auto" type="submit" [disabled]="signUpForm.invalid">SignUp</button>
             </div>
            
         </form>

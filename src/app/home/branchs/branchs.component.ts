@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PythonService } from 'src/app/python.service';
 
 
@@ -20,13 +20,13 @@ export class BranchsComponent implements OnInit {
   }
 
   branchForm = new FormGroup({
-    branchName: new FormControl(''),
-    phone_number:new FormControl(''),
+    branchName: new FormControl('',[Validators.required,Validators.minLength(6)]),
+    phone_number:new FormControl('',[Validators.required,Validators.maxLength(10),Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
     address: new FormGroup({
-      street: new FormControl(''),
-      city: new FormControl(''),
-      state: new FormControl(''),
-      zip: new FormControl('')
+      street: new FormControl('',[Validators.required]),
+      city: new FormControl('',[Validators.required]),
+      state: new FormControl('',[Validators.required]),
+      zip: new FormControl('',[Validators.required,Validators.maxLength(6),Validators.minLength(6)])
     })
   });
 
@@ -69,4 +69,12 @@ export class BranchsComponent implements OnInit {
     })
   }
 
+  number(e){
+    console.log(e.charCodeAt());
+    if(e.charCodeAt() >=48 && e.charCodeAt() <=57){
+      return true
+    }else{
+      return false
+    }
+  }
 }

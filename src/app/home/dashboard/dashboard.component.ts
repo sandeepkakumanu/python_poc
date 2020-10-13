@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceService } from 'src/app/shared/shared/services/service.service';
 import { PythonService } from 'src/app/python.service';
 
 @Component({
@@ -136,6 +135,10 @@ export class DashboardComponent implements OnInit {
 
   roomselected(e) {
     console.log(e);
+    this.seatsDisplay = false
+    this.datesDisplay = false
+    this.timeDisplay = false
+    this.selectedbranch=""
     this.roomid=e
   }
 

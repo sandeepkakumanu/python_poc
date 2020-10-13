@@ -12,7 +12,7 @@ import { PythonService } from '../python.service';
 export class LoginComponent implements OnInit {
 
   loginForm = new FormGroup({
-    username: new FormControl('',[Validators.required]),
+    username: new FormControl('',[Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
     password: new FormControl('',[Validators.required]),
   });
   logindata
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
        
         this.logindata=res
         localStorage.setItem('id',JSON.stringify(this.logindata.data[0]))
-        localStorage.setItem('role',"Student")
+        localStorage.setItem('role',"student")
         this.route.navigate(['/home'])
       })
      
@@ -56,7 +56,9 @@ export class LoginComponent implements OnInit {
       this.ser.adminlogin(obj).subscribe(res => {
       
         this.logindata=res
-        localStorage.setItem('id',this.logindata.data)
+        console.log(res);
+        
+        localStorage.setItem('id',JSON.stringify(this.logindata.data[0]))
         localStorage.setItem('role',"admin")
         this.route.navigate(['/home'])
       })

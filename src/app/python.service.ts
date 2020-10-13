@@ -8,49 +8,50 @@ export class PythonService {
     throw new Error("Method not implemented.");
   }
 
+  ip="192.168.2.118:8000"
   constructor(private service:HttpClient) { }
 
   getBranchList(){
-    return this.service.get("http://192.168.2.141:8000/admin/api/branch/");
+    return this.service.get("http://"+this.ip+"/admin/api/branch/");
   }
   adminlogin(req){
-    return this.service.post("http:////192.168.2.141:8000/admin/api/adminlogin/",req)
+    return this.service.post("http://"+this.ip+"/admin/api/adminlogin/",req)
   }
 
   studentlogin(req){
-    return this.service.post("http://192.168.2.141:8000/admin/api/studentlogin/",req)
+    return this.service.post("http://"+this.ip+"/admin/api/studentlogin/",req)
   }
   getStudentList(){
-    return this.service.get("http://192.168.2.141:8000/admin/api/studentregister/")
+    return this.service.get("http://"+this.ip+"/admin/api/studentregister/")
   }
 
   studentById(req){
-    return this.service.get("http://192.168.2.141:8000/admin/api/studentregister/"+req+"/")
+    return this.service.get("http://"+this.ip+"/admin/api/studentregister/"+req+"/")
   }
 
   createbranch(req){
-    return this.service.post("http://192.168.2.141:8000/admin/api/branch/",req)
+    return this.service.post("http://"+this.ip+"/admin/api/branch/",req)
     
   }
 
   StudentEnrollement(req){
-    return this.service.post("http://192.168.2.141:8000/admin/api/studentenroll/",req)
+    return this.service.post("http://"+this.ip+"/admin/api/studentenroll/",req)
   }
 
   linkValidation(req){
-    return this.service.get("http://192.168.2.141:8000/admin/api/studentenroll?student_link="+req)
+    return this.service.get("http://"+this.ip+"/admin/api/studentenroll?student_link="+req)
   }
 
   sigunupLink(req,data){
-    return this.service.put("http://192.168.2.141:8000/admin/api/studentregister/"+req+"/",data)
+    return this.service.put("http://"+this.ip+"/admin/api/studentregister/"+req+"/",data)
   }
 
   getbookingdetails(req){
-    return this.service.get("http://192.168.2.141:8000/admin/api/timeslot/?from_date="+req.from_date+"&to_date="+req.to_date+"&from_time="+req.from_time+"&to_time="+req.to_time+"&branch_id="+req.branch_id+"&room_id="+req.room_id)
+    return this.service.get("http://"+this.ip+"/admin/api/timeslot/?from_date="+req.from_date+"&to_date="+req.to_date+"&from_time="+req.from_time+"&to_time="+req.to_time+"&branch_id="+req.branch_id+"&room_id="+req.room_id)
   }
 
   bookseats(req){
-    return this.service.post("http://192.168.2.141:8000/admin/api/bookingseat/",req)
+    return this.service.post("http://"+this.ip+"/admin/api/bookingseat/",req)
   }
 
 }

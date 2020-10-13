@@ -13,21 +13,19 @@ export class RegisterComponent implements OnInit {
   msg: any
   msgStatus = false
   signUpForm = new FormGroup({
-    userName: new FormControl('', [
-      Validators.required,
-      Validators.minLength(15)]),
-    email: new FormControl('', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
-    phone_number: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+    userName: new FormControl(''),
+    email: new FormControl(''),
+    phone_number: new FormControl(''),
     first_name: new FormControl('', [Validators.required,]),
     last_name: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirm_password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     address: new FormGroup({
-      street: new FormControl(''),
-      city: new FormControl(''),
-      state: new FormControl(''),
-      zip: new FormControl('')
+      street: new FormControl('',[Validators.required]),
+      city: new FormControl('',[Validators.required]),
+      state: new FormControl('',[Validators.required]),
+      zip: new FormControl('',[Validators.required])
     })
   })
 

@@ -5,12 +5,24 @@
             <form [formGroup]="studnetEnrollForm">
                 <label>UserName</label>
                 <input class="form-control" formControlName="username">
+                <div *ngIf="studnetEnrollForm.get('username').touched  && studnetEnrollForm.get('username').errors ">
+                    <p *ngIf="studnetEnrollForm.get('username').errors.required" class="errors">User Name is Required</p>
+                    <p *ngIf="studnetEnrollForm.get('username').errors.minlength" class="errors">User Name should minimum 6 charecters</p>
+                </div>
                 <label>Email</label>
                 <input class="form-control" formControlName="email">
-                <label>Phone Number</label>
-                <input class="form-control" formControlName="phone_number">
-
-                <button class="btn bttn" (click)="studentEnroll()">Invite Student</button>
+                <div *ngIf="studnetEnrollForm.get('email').touched  && studnetEnrollForm.get('email').errors ">
+                    <p *ngIf="studnetEnrollForm.get('email').errors.required" class="errors">Email is Required</p>
+                    <p *ngIf="studnetEnrollForm.get('email').errors.pattern" class="errors">email should be valid</p>
+                </div>
+                <label>Phone Number</label>             
+                <input class="form-control" formControlName="phone_number" (keypress)="number($event.key)">
+                <div *ngIf="studnetEnrollForm.get('phone_number').touched  && studnetEnrollForm.get('phone_number').errors ">
+                    <p *ngIf="studnetEnrollForm.get('phone_number').errors.required" class="errors">Phone number is Required</p>
+                    <p *ngIf="studnetEnrollForm.get('phone_number').errors.pattern" class="errors">Phone number should be valid</p>
+                    <p *ngIf="studnetEnrollForm.get('phone_number').errors.maxlength" class="errors">Phone number should be only 10 numbers</p>
+                </div>
+                <button class="btn bttn" (click)="studentEnroll()" [disabled]="studnetEnrollForm.invalid">Invite Student</button>
             </form>
         </div>
     </div>
