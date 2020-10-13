@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
   }
 
   displayseats() {
-    this.seatsarray=[]
+    this.seatsarray = []
     for (let i = 0; i < this.seats; i++) {
       let obj = {
         id: i,
@@ -96,7 +96,7 @@ export class DashboardComponent implements OnInit {
       from_time: this.fromtime,
       to_time: this.totime,
       branch_id: Number(this.selectedbranch),
-      room_id:this.roomid
+      room_id: this.roomid
     }
     console.log(reqobj);
     let data
@@ -138,28 +138,32 @@ export class DashboardComponent implements OnInit {
     this.seatsDisplay = false
     this.datesDisplay = false
     this.timeDisplay = false
-    this.selectedbranch=""
-    this.roomid=e
+    this.fromtime = null
+    this.totime = null
+    this.fromdate = null
+    this.todate = null
+    this.selectedbranch = ""
+    this.roomid = e
   }
 
-  bookseat(){
-    console.log(this.selectedSeats,this.id);
-    
-    for(let i of this.selectedSeats){
-      let obj={
-        seat_no:i.id,
-        branch_id:Number(this.selectedbranch),
-        from_date:this.fromdate,
-        to_date:this.todate,
-        from_time:this.fromtime,
-        to_time:this.totime,
-        user_id:this.id.user_id,
-        room_id:this.roomid
+  bookseat() {
+    console.log(this.selectedSeats, this.id);
+
+    for (let i of this.selectedSeats) {
+      let obj = {
+        seat_no: i.id,
+        branch_id: Number(this.selectedbranch),
+        from_date: this.fromdate,
+        to_date: this.todate,
+        from_time: this.fromtime,
+        to_time: this.totime,
+        user_id: this.id.user_id,
+        room_id: this.roomid
       }
       console.log(obj);
-      this.service.bookseats(obj).subscribe(res=>{
+      this.service.bookseats(obj).subscribe(res => {
         console.log(res);
-      })          
+      })
     }
   }
 }

@@ -1,13 +1,13 @@
 .background{
-    background-image: url("/assets/loginbackground.jpg");
-    height: 100vh;
+    background-image: url("/assets/loginbackground3.jpg");
+    min-height: 100vh;
     background-size: cover;
+    backdrop-filter: blur(8px);
 }
 .maindiv{
-    margin: 60px auto;
+    margin: auto auto;
     padding: 20px !important;
-    // background-image: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%);
-    color:black;
+    color:white;
 }
 
 .logindiv{
@@ -25,8 +25,8 @@
     margin: 10px 0px 0px 0px!important;
     background: transparent;
     border: none;
-    border-bottom: 1px solid black;
-    color:black
+    border-bottom: 1px solid white;
+    color:white;
 }
 
 img{
@@ -54,9 +54,8 @@ img{
 }
 
 .form-control::placeholder{
-    color: black;
+    color:white;
 }
-
 
 .lbtn{
     background-color: #0E1010;

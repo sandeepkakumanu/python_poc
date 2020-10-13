@@ -44,6 +44,13 @@
     background-color: rgb(255, 14, 235);
 }
 
-input[type="date"],input[type="time"]{
+input[type="date"],input[type="time"],select{
     margin: 5px 5px 5px 0px;
+    padding: 5px;
+    border-radius: 5px;
 }
+
+.tab-pane {
+    padding: 10px;
+}
+
