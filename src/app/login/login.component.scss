@@ -48,9 +48,9 @@ img{
     color:white;
     
 }
-.cbtn:active,.cbtn:focus,.cbtn:hover,.cbtn:visited{
-    background:black;
-    color:white;
+.cbtn:active,.cbtn:focus,.cbtn:hover,.cbtn:visited,.cbtn::selection{
+    background:white;
+    color:black;
 }
 
 .form-control::placeholder{
