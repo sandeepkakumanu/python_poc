@@ -52,5 +52,23 @@ input[type="date"],input[type="time"],select{
 
 .tab-pane {
     padding: 10px;
+    p{
+        margin: 5px;
+    }
+}
+
+
+.deatilsdiv{
+    display: block;
+    margin: 70px auto;
+}
+
+.card{
+    padding: 10px;
+}
+
+.heading{
+    font-size: 18px;
+    font-weight: bold;
 }
 

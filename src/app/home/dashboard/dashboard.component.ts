@@ -17,10 +17,12 @@ export class DashboardComponent implements OnInit {
   role
   branchs
   selectedbranch
+  bookedUserDetails:any
   selectedSeats = []
-  seatsDisplay = false
-  datesDisplay = false
-  timeDisplay = false
+  seatsDisplay:boolean = false
+  datesDisplay:boolean = false
+  timeDisplay:boolean = false
+  bookingdetails:boolean=false
   fromtime: any
   totime: any
   fromdate: any
@@ -66,19 +68,40 @@ export class DashboardComponent implements OnInit {
   }
 
   selected(e) {
+    console.log(e);
+    
     this.selectedSeats = []
-    this.seatsarray[e.id].selected = true
-    this.seatsarray.map(s => {
-      if (s.id == e.id) {
-        s.selected = true
-        this.selectedSeats.push(s)
-      } else {
-        s.selected = false
-      }
-    })
-    console.log(this.selectedSeats)
+    if(e.userDetails==null){
+      this.bookingdetails=false
+      this.seatsarray[e.id].selected = true
+      this.seatsarray.map(s => {
+        if (s.id == e.id) {
+          s.selected = true
+          this.selectedSeats.push(s)
+        } else {
+          s.selected = false
+        }
+      })
+    }else{
+      this.bookingdetails=true
+      this.setbooking(e)
+    }
   }
 
+  setbooking(e){
+   this.bookedUserDetails=null
+    this.service.studentById(e.userDetails.user_id).subscribe(res=>{
+      console.log(res);
+      let obj={
+        userDetails:res,
+        bookingDetails:e.userDetails
+
+      }
+      console.log(obj);
+      
+      this.bookedUserDetails=obj
+    })
+  }
   selectedFun() {
     this.datesDisplay = true
   }
@@ -138,6 +161,7 @@ export class DashboardComponent implements OnInit {
     this.seatsDisplay = false
     this.datesDisplay = false
     this.timeDisplay = false
+    this.bookingdetails=false
     this.fromtime = null
     this.totime = null
     this.fromdate = null

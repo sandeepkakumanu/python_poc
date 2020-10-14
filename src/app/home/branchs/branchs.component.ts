@@ -77,4 +77,11 @@ export class BranchsComponent implements OnInit {
       return false
     }
   }
+
+  deletefunction(e){
+    this.service.branchdeletebyid(e).subscribe(res=>{
+      console.log(res);
+      this.getBranchLists()
+    })
+  }
 }

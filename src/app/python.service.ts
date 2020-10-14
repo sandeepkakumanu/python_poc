@@ -54,4 +54,8 @@ export class PythonService {
     return this.service.post("http://"+this.ip+"/admin/api/bookingseat/",req)
   }
 
+  branchdeletebyid(id){
+    return this.service.delete("http://"+this.ip+"/admin/api/branch/"+id+"/");
+  }
+
 }

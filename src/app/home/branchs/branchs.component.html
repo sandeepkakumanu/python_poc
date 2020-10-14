@@ -92,11 +92,12 @@
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
-                <th>Branch Id</th>
-                <th>Branch Name</th>
-                <th>Phone Number</th>
-                <th>Created On</th>
-                <th>Address</th>
+                <th class="text-center">Branch Id</th>
+                <th class="text-center">Branch Name</th>
+                <th class="text-center">Phone Number</th>
+                <th class="text-center">Created On</th>
+                <th class="text-center">Address</th>
+                <th class="text-center" *ngIf="role=='admin'">Delete</th>
             </thead>
             <tbody>
                 <tr *ngFor="let b of data">
@@ -109,7 +110,7 @@
                     <!-- <b>City</b>: {{b.address.city}}<br>
                         <b>State</b>: {{b.address.state}}<br>
                         <b>Zip Code</b>: {{b.address.zip}}<br> -->
-
+                    <td  *ngIf="role=='admin'"><span class="row"><i class="fa fa-trash mx-auto icon" (click)="deletefunction(b.branch_id)"></i></span></td>
                 </tr>
             </tbody>
         </table>
