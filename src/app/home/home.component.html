@@ -10,7 +10,8 @@
                 <ul class="nav flex-column">
                     <div class="row icondiv">
                         <i class="fa fa-user icon my-auto" aria-hidden="true"></i>
-                        <p class="my-auto ml-3 text">{{userName}}</p>
+                        <p class="my-auto ml-3 text" *ngIf="role=='student'">{{userName}}</p>
+                        <p class="my-auto ml-3 text" *ngIf="role=='admin'">Admin</p>
                     </div>
 
                     <li class="nav-item">
@@ -26,8 +27,13 @@
                       <a class="nav-link" (click)="logout()">LogOut</a>
                     </li>
                   </ul>
+                  
+            </div>
+            <div class="mt-3">
+              <marquee class="warncolor">{{warnmsg}}</marquee>
             </div>
           </nav>
+         
     </div>
     <div class="col-lg-10 col-md-12 col-sm-12 data">
       <div class="row header shadow">

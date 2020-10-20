@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   role
   user
   userName:any
+  warnmsg:String=""
    ngOnInit() {
     
     this.role=localStorage.getItem('role')
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit {
       console.log(res);
       data=res
       this.userName=data.first_name+" "+data.last_name
+      this.warnmsg=data.due
     })
   }
 

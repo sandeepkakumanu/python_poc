@@ -9,8 +9,11 @@ import { PythonService } from 'src/app/python.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private service: PythonService, private toaster: ToastrManager) { }
+  constructor(private service: PythonService, private toaster: ToastrManager) { 
+    this.today=this.dateToYMD(new Date())
+  }
 
+  today:any
   seats: any = 30
   seatsarray: any = []
   studentdata: any
@@ -35,6 +38,7 @@ export class DashboardComponent implements OnInit {
   updatedtodate: any
   updatedfromtime: any
   updatedtotime: any
+  updatebookingid:any
   ngOnInit(): void {
     this.id = JSON.parse(localStorage.getItem('id'))
     this.role = localStorage.getItem('role')
@@ -47,7 +51,7 @@ export class DashboardComponent implements OnInit {
 
   displayseats() {
     this.seatsarray = []
-    for (let i = 0; i < this.seats; i++) {
+    for (let i = 1; i < this.seats; i++) {
       let obj = {
         id: i,
         selected: false,
@@ -98,6 +102,7 @@ export class DashboardComponent implements OnInit {
     this.bookedUserDetails = null
     this.service.studentById(e.userDetails.user_id).subscribe(res => {
       console.log(res);
+      this.updatebookingid=e.userDetails.booking_id
       let obj = {
         userDetails: res,
         bookingDetails: e.userDetails
@@ -106,6 +111,7 @@ export class DashboardComponent implements OnInit {
       console.log(obj);
 
       this.bookedUserDetails = obj
+      
     })
   }
   selectedFun() {
@@ -134,7 +140,7 @@ export class DashboardComponent implements OnInit {
   getbookedseats(reqobj) {
     let data
     this.service.getbookingdetails(reqobj).subscribe(res => {
-      console.log(res);
+      console.log(res,"data");
       data = res
       if (data.booked_Seats.length != 0) {
         this.displayseats()
@@ -190,6 +196,7 @@ export class DashboardComponent implements OnInit {
     this.updatedtodate=null
     this.updatedfromdate=null
     this.updatedfromtime=null
+    this.bookbtn = false
   }
 
   bookseat() {
@@ -242,6 +249,12 @@ export class DashboardComponent implements OnInit {
       "room_id": this.bookedUserDetails.bookingDetails.room_type
     }
     console.log(obj);
-
+    this.service.renewalseat(obj,this.updatebookingid).subscribe(res=>{
+      console.log(res);
+      this.toaster.successToastr("Renewal Done !","Success")
+      
+    },err=>{
+      this.toaster.errorToastr("Error while renewaling seat","Oops!")
+    })
   }
 }
