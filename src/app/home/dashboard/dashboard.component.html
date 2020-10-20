@@ -46,7 +46,7 @@
           <div *ngFor="let s of seatsarray; let i=index" class="seat" (click)="selected(s)"
             [ngClass]="[(s.booked && s.userDetails.gender=='female') ? 'femalebooked' : '', (s.booked && s.userDetails.gender=='male') ? 'malebooked' : '', s.selected ? 'selected' : '']">
           </div>
-          <button class="btn bttn m-2" *ngIf="role=='student'" (click)="bookseat()">Book</button>
+          <button class="btn bttn m-2" *ngIf="role=='student' && bookbtn" (click)="bookseat()">Book</button>
         </div>
         <div *ngIf="!seatsDisplay" class="">
 
@@ -124,7 +124,7 @@
           <div *ngFor="let s of seatsarray; let i=index" class="seat" (click)="selected(s)"
             [ngClass]="[(s.booked && s.userDetails.gender=='female') ? 'femalebooked' : '', (s.booked && s.userDetails.gender=='male') ? 'malebooked' : '', s.selected ? 'selected' : '']">
           </div>
-          <button class="btn bttn m-2" *ngIf="role=='student'" (click)="bookseat()">Book</button>
+          <button class="btn bttn m-2" *ngIf="role=='student' && bookbtn" (click)="bookseat()">Book</button>
         </div>
         <div *ngIf="!seatsDisplay" class="">
 

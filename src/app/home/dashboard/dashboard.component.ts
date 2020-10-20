@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrManager } from 'ng6-toastr-notifications';
 import { PythonService } from 'src/app/python.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { PythonService } from 'src/app/python.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private service: PythonService) { }
+  constructor(private service: PythonService,private toaster:ToastrManager) { }
 
   seats: any = 30
   seatsarray: any = []
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
   fromdate: any
   todate: any
   roomid: any = 1
+  bookbtn:boolean=false
 
   ngOnInit(): void {
     this.id = JSON.parse(localStorage.getItem('id'))
@@ -122,6 +124,10 @@ export class DashboardComponent implements OnInit {
       room_id: this.roomid
     }
     console.log(reqobj);
+    this.getbookedseats(reqobj)
+  }
+
+  getbookedseats(reqobj){
     let data
     this.service.getbookingdetails(reqobj).subscribe(res => {
       console.log(res);
@@ -129,6 +135,14 @@ export class DashboardComponent implements OnInit {
       if (data.booked_Seats.length != 0) {
         this.displayseats()
         this.seatsDisplay = true
+        let mydata=data.booked_Seats.filter(a=>a.user_id==this.id.user_id)
+        if(mydata.length!=0){
+          this.bookbtn=false
+        }else{
+          this.bookbtn=true
+        }
+        console.log(this.bookbtn);
+        
         for (let i of data.booked_Seats) {
           let id = i.seat_no
           this.seatsarray[id].booked = true;
@@ -138,9 +152,9 @@ export class DashboardComponent implements OnInit {
       } else {
         this.displayseats()
         this.seatsDisplay = true
+        this.bookbtn=true
       }
     })
-
   }
 
   todateCalculate(e) {
@@ -185,8 +199,18 @@ export class DashboardComponent implements OnInit {
         room_id: this.roomid
       }
       console.log(obj);
+      let data
       this.service.bookseats(obj).subscribe(res => {
         console.log(res);
+        data=res
+        if(data.status==201){
+          this.toaster.successToastr(data.message,"Success!")
+          this.timeSelected()
+        }
+
+
+      },err=>{
+        this.toaster.errorToastr("Error while booking seat","Oops!")
       })
     }
   }
