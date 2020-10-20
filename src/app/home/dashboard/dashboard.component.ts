@@ -9,7 +9,7 @@ import { PythonService } from 'src/app/python.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private service: PythonService,private toaster:ToastrManager) { }
+  constructor(private service: PythonService, private toaster: ToastrManager) { }
 
   seats: any = 30
   seatsarray: any = []
@@ -18,19 +18,23 @@ export class DashboardComponent implements OnInit {
   role
   branchs
   selectedbranch
-  bookedUserDetails:any
+  bookedUserDetails: any
   selectedSeats = []
-  seatsDisplay:boolean = false
-  datesDisplay:boolean = false
-  timeDisplay:boolean = false
-  bookingdetails:boolean=false
+  seatsDisplay: boolean = false
+  datesDisplay: boolean = false
+  timeDisplay: boolean = false
+  bookingdetails: boolean = false
   fromtime: any
   totime: any
   fromdate: any
   todate: any
   roomid: any = 1
-  bookbtn:boolean=false
+  bookbtn: boolean = false
 
+  updatedfromdate: any
+  updatedtodate: any
+  updatedfromtime: any
+  updatedtotime: any
   ngOnInit(): void {
     this.id = JSON.parse(localStorage.getItem('id'))
     this.role = localStorage.getItem('role')
@@ -71,10 +75,10 @@ export class DashboardComponent implements OnInit {
 
   selected(e) {
     console.log(e);
-    
+
     this.selectedSeats = []
-    if(e.userDetails==null){
-      this.bookingdetails=false
+    if (e.userDetails == null) {
+      this.bookingdetails = false
       this.seatsarray[e.id].selected = true
       this.seatsarray.map(s => {
         if (s.id == e.id) {
@@ -84,24 +88,24 @@ export class DashboardComponent implements OnInit {
           s.selected = false
         }
       })
-    }else{
-      this.bookingdetails=true
+    } else {
+      this.bookingdetails = true
       this.setbooking(e)
     }
   }
 
-  setbooking(e){
-   this.bookedUserDetails=null
-    this.service.studentById(e.userDetails.user_id).subscribe(res=>{
+  setbooking(e) {
+    this.bookedUserDetails = null
+    this.service.studentById(e.userDetails.user_id).subscribe(res => {
       console.log(res);
-      let obj={
-        userDetails:res,
-        bookingDetails:e.userDetails
+      let obj = {
+        userDetails: res,
+        bookingDetails: e.userDetails
 
       }
       console.log(obj);
-      
-      this.bookedUserDetails=obj
+
+      this.bookedUserDetails = obj
     })
   }
   selectedFun() {
@@ -127,7 +131,7 @@ export class DashboardComponent implements OnInit {
     this.getbookedseats(reqobj)
   }
 
-  getbookedseats(reqobj){
+  getbookedseats(reqobj) {
     let data
     this.service.getbookingdetails(reqobj).subscribe(res => {
       console.log(res);
@@ -135,14 +139,14 @@ export class DashboardComponent implements OnInit {
       if (data.booked_Seats.length != 0) {
         this.displayseats()
         this.seatsDisplay = true
-        let mydata=data.booked_Seats.filter(a=>a.user_id==this.id.user_id)
-        if(mydata.length!=0){
-          this.bookbtn=false
-        }else{
-          this.bookbtn=true
+        let mydata = data.booked_Seats.filter(a => a.user_id == this.id.user_id)
+        if (mydata.length != 0) {
+          this.bookbtn = false
+        } else {
+          this.bookbtn = true
         }
         console.log(this.bookbtn);
-        
+
         for (let i of data.booked_Seats) {
           let id = i.seat_no
           this.seatsarray[id].booked = true;
@@ -152,7 +156,7 @@ export class DashboardComponent implements OnInit {
       } else {
         this.displayseats()
         this.seatsDisplay = true
-        this.bookbtn=true
+        this.bookbtn = true
       }
     })
   }
@@ -175,13 +179,17 @@ export class DashboardComponent implements OnInit {
     this.seatsDisplay = false
     this.datesDisplay = false
     this.timeDisplay = false
-    this.bookingdetails=false
+    this.bookingdetails = false
     this.fromtime = null
     this.totime = null
     this.fromdate = null
     this.todate = null
     this.selectedbranch = ""
     this.roomid = e
+    this.updatedtotime=null
+    this.updatedtodate=null
+    this.updatedfromdate=null
+    this.updatedfromtime=null
   }
 
   bookseat() {
@@ -202,16 +210,38 @@ export class DashboardComponent implements OnInit {
       let data
       this.service.bookseats(obj).subscribe(res => {
         console.log(res);
-        data=res
-        if(data.status==201){
-          this.toaster.successToastr(data.message,"Success!")
+        data = res
+        if (data.status == 201) {
+          this.toaster.successToastr(data.message, "Success!")
           this.timeSelected()
         }
 
 
-      },err=>{
-        this.toaster.errorToastr("Error while booking seat","Oops!")
+      }, err => {
+        this.toaster.errorToastr("Error while booking seat", "Oops!")
       })
     }
+  }
+
+  modalsetvalues() {
+    this.updatedfromdate = this.bookedUserDetails.bookingDetails.from_date
+    this.updatedtodate = this.bookedUserDetails.bookingDetails.to_date
+    this.updatedfromtime = this.bookedUserDetails.bookingDetails.from_time
+    this.updatedtotime = this.bookedUserDetails.bookingDetails.to_time
+  }
+
+  updatedata() {
+    var obj = {
+      "seat_no": this.bookedUserDetails.bookingDetails.seat_no,
+      "branch_id": this.bookedUserDetails.bookingDetails.branch_id,
+      "from_date": this.updatedfromdate,
+      "to_date": this.updatedtodate,
+      "from_time": this.updatedfromtime,
+      "to_time": this.updatedtotime,
+      "user_id": this.bookedUserDetails.bookingDetails.user_id,
+      "room_id": this.bookedUserDetails.bookingDetails.room_type
+    }
+    console.log(obj);
+
   }
 }

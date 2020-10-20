@@ -58,4 +58,7 @@ export class PythonService {
     return this.service.delete("http://"+this.ip+"/admin/api/branch/"+id+"/");
   }
 
+  renewalseat(obj,id){
+    return this.service.put("http://"+this.ip+"/admin/api/bookingseat/"+id+"/",obj)
+  }
 }

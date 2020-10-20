@@ -21,7 +21,7 @@
         <p class="head">Ac Class Seats InFormation</p>
         <h5 class="mb-3">Select branch</h5>
         <select [(ngModel)]="selectedbranch" (change)="selectedFun()">
-          <option>--select branch--</option>
+          <option value="" selected disabled hidden>--select branch--</option>
           <option *ngFor="let b of branchs" value="{{b.branch_id}}">{{b.branch_name}}</option>
         </select>
         <div *ngIf="datesDisplay">
@@ -58,9 +58,11 @@
           <p class="heading">Seat Number</p>
           <p>{{bookedUserDetails.bookingDetails.seat_no}}</p>
           <p class="heading">Room</p>
-          <p><label *ngIf="bookedUserDetails.bookingDetails.room_type==1">AC Room</label><label  *ngIf="bookedUserDetails.bookingDetails.room_type==2">Non-Ac Room</label></p>
+          <p><label *ngIf="bookedUserDetails.bookingDetails.room_type==1">AC Room</label><label
+              *ngIf="bookedUserDetails.bookingDetails.room_type==2">Non-Ac Room</label></p>
           <p class="heading">Student Name</p>
-          <p>{{bookedUserDetails.userDetails.first_name|titlecase}} &nbsp; {{bookedUserDetails.userDetails.last_name|titlecase}}</p>
+          <p>{{bookedUserDetails.userDetails.first_name|titlecase}} &nbsp;
+            {{bookedUserDetails.userDetails.last_name|titlecase}}</p>
           <p class="heading">Gender</p>
           <p>{{bookedUserDetails.userDetails.gender|titlecase}}</p>
           <p class="heading">Email</p>
@@ -87,9 +89,61 @@
               <p>{{bookedUserDetails.bookingDetails.to_time}}</p>
             </div>
           </div>
+          <div class="row">
+            <button class="btn bttn" data-toggle="modal" data-target="#updatemodal" (click)="modalsetvalues()">Update /
+              Renewal</button>
+          </div>
+
+          <div class="modal fade" id="updatemodal" tabindex="-1" role="dialog" aria-labelledby="updatemodalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Renewal Seat</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-6">
+                      <p class="heading">Room</p>
+                      <p><label *ngIf="bookedUserDetails.bookingDetails.room_type==1">AC Room</label><label
+                          *ngIf="bookedUserDetails.bookingDetails.room_type==2">Non-Ac Room</label></p>
+                    </div>
+                    <div class="col-6">
+                      <p class="heading">Seat Number</p>
+                      <p>{{bookedUserDetails.bookingDetails.seat_no}}</p>
+                    </div>
+
+                  </div>
+                  <div>
+                    <p class="heading">Student Name</p>
+                    <p>{{bookedUserDetails.userDetails.first_name|titlecase}} &nbsp;
+                      {{bookedUserDetails.userDetails.last_name|titlecase}}</p>
+                  </div>
+                  <div class="row">
+                    <input type="date" [(ngModel)]="updatedfromdate" value="updatedfromdate">
+                    <input type="date" [(ngModel)]="updatedtodate" value="updatedtodate">
+                  </div>
+                  <div class="row">
+                    <input type="time" id="appt" name="appt" min="09:00" max="18:00" [(ngModel)]="updatedfromtime"
+                      value="updatedfromtime">
+                    <input type="time" id="appt" name="appt" min="09:00" max="18:00" [(ngModel)]="updatedtotime"
+                      value="updatedtotime">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" (click)="updatedata()">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 
 
@@ -99,7 +153,7 @@
         <p class="head">Non-Ac Class Seats InFormation</p>
         <h5 class="mb-3">Select branch</h5>
         <select [(ngModel)]="selectedbranch" (change)="selectedFun()">
-          <option>--select branch--</option>
+          <option value="" selected disabled hidden>--select branch--</option>
           <option *ngFor="let b of branchs" value="{{b.branch_id}}">{{b.branch_name}}</option>
         </select>
         <div *ngIf="datesDisplay">
@@ -136,9 +190,11 @@
           <p class="heading">Seat Number</p>
           <p>{{bookedUserDetails.bookingDetails.seat_no}}</p>
           <p class="heading">Room</p>
-          <p><label *ngIf="bookedUserDetails.bookingDetails.room_type==1">AC Room</label><label  *ngIf="bookedUserDetails.bookingDetails.room_type==2">Non-Ac Room</label></p>
+          <p><label *ngIf="bookedUserDetails.bookingDetails.room_type==1">AC Room</label><label
+              *ngIf="bookedUserDetails.bookingDetails.room_type==2">Non-Ac Room</label></p>
           <p class="heading">Student Name</p>
-          <p>{{bookedUserDetails.userDetails.first_name|titlecase}} &nbsp; {{bookedUserDetails.userDetails.last_name|titlecase}}</p>
+          <p>{{bookedUserDetails.userDetails.first_name|titlecase}} &nbsp;
+            {{bookedUserDetails.userDetails.last_name|titlecase}}</p>
           <p class="heading">Gender</p>
           <p>{{bookedUserDetails.userDetails.gender|titlecase}}</p>
           <p class="heading">Email</p>
@@ -163,6 +219,57 @@
             <div>
               <p class="heading">To Time</p>
               <p>{{bookedUserDetails.bookingDetails.to_time}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn bttn" data-toggle="modal" data-target="#updatemodal" (click)="modalsetvalues()">Update /
+              Renewal</button>
+          </div>
+
+          <div class="modal fade" id="updatemodal" tabindex="-1" role="dialog" aria-labelledby="updatemodalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Renewal Seat</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-6">
+                      <p class="heading">Room</p>
+                      <p><label *ngIf="bookedUserDetails.bookingDetails.room_type==1">AC Room</label><label
+                          *ngIf="bookedUserDetails.bookingDetails.room_type==2">Non-Ac Room</label></p>
+                    </div>
+                    <div class="col-6">
+                      <p class="heading">Seat Number</p>
+                      <p>{{bookedUserDetails.bookingDetails.seat_no}}</p>
+                    </div>
+
+                  </div>
+                  <div>
+                    <p class="heading">Student Name</p>
+                    <p>{{bookedUserDetails.userDetails.first_name|titlecase}} &nbsp;
+                      {{bookedUserDetails.userDetails.last_name|titlecase}}</p>
+                  </div>
+                  <div class="row">
+                    <input type="date" [(ngModel)]="updatedfromdate" value="updatedfromdate">
+                    <input type="date" [(ngModel)]="updatedtodate" value="updatedtodate">
+                  </div>
+                  <div class="row">
+                    <input type="time" id="appt" name="appt" min="09:00" max="18:00" [(ngModel)]="updatedfromtime"
+                      value="updatedfromtime">
+                    <input type="time" id="appt" name="appt" min="09:00" max="18:00" [(ngModel)]="updatedtotime"
+                      value="updatedtotime">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" (click)="updatedata()">Save changes</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
