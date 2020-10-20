@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 import { PythonService } from '../python.service';
 
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   });
   logindata
   user: any = "Student"
-  constructor(private route: Router, private ser: PythonService,private formBuilder: FormBuilder) {
+  constructor(private route: Router, private ser: PythonService,private toaster:ToastrManager) {
 
   }
 
@@ -41,9 +42,15 @@ export class LoginComponent implements OnInit {
        console.log(res);
        
         this.logindata=res
-        localStorage.setItem('id',JSON.stringify(this.logindata.data[0]))
-        localStorage.setItem('role',"student")
-        this.route.navigate(['/home'])
+        if(this.logindata.status==400){
+          this.toaster.errorToastr("Username Not Found",'Oops!')
+        }else if(this.logindata.status==401){
+          this.toaster.errorToastr("Invalid Password",'Oops!')
+        }else if(this.logindata.status==200){
+          localStorage.setItem('id',JSON.stringify(this.logindata.data[0]))
+          localStorage.setItem('role',"student")
+          this.route.navigate(['/home'])
+        }
       })
      
     } else {

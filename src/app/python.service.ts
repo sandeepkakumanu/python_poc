@@ -8,7 +8,7 @@ export class PythonService {
     throw new Error("Method not implemented.");
   }
 
-  ip="192.168.2.118:8000"
+  ip="192.168.2.141:8000"
   constructor(private service:HttpClient) { }
 
   getBranchList(){

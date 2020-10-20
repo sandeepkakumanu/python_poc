@@ -1,7 +1,7 @@
 <div class="row m-4 p-2">
     <h3>Branchs List</h3>
     <button *ngIf="role == 'admin'" class="btn bttn ml-auto" data-toggle="modal"
-        data-target="#exampleModalCenter">Create New Branch</button>
+        data-target="#exampleModalCenter" (click)="clear()">Create New Branch</button>
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

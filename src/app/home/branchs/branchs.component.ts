@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrManager } from 'ng6-toastr-notifications';
 import { PythonService } from 'src/app/python.service';
 
 
@@ -12,7 +13,7 @@ export class BranchsComponent implements OnInit {
   id
   role
   data: any;
-  constructor(private service: PythonService) {
+  constructor(private service: PythonService,private toaster:ToastrManager) {
     this.id = localStorage.getItem('id')
     this.role = localStorage.getItem('role')
 
@@ -20,8 +21,8 @@ export class BranchsComponent implements OnInit {
   }
 
   branchForm = new FormGroup({
-    branchName: new FormControl('',[Validators.required,Validators.minLength(6)]),
-    phone_number:new FormControl('',[Validators.required,Validators.maxLength(10),Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+    branchName: new FormControl('',[Validators.required,Validators.minLength(3)]),
+    phone_number:new FormControl('',[Validators.required,Validators.maxLength(10),Validators.pattern("^((\\+91-?)|0)?[6-9]{1}[0-9]{9}$")]),
     address: new FormGroup({
       street: new FormControl('',[Validators.required]),
       city: new FormControl('',[Validators.required]),
@@ -48,9 +49,17 @@ export class BranchsComponent implements OnInit {
       "room_id":1
     }
     console.log(obj);
+    let data
     this.service.createbranch(obj).subscribe(res => {
       console.log(res);
+      data=res
+      if(data.status==201){
+        this.toaster.successToastr(data.message,"Success!")
+        this.branchForm.reset()
+      }
       this.getBranchLists()
+    },err=>{
+      this.toaster.errorToastr("Error while creating branch","Oops!")
     })
   }
 
@@ -61,8 +70,6 @@ export class BranchsComponent implements OnInit {
       console.log(this.data)
       for(let i of this.data){
         console.log(i.address);
-        // let d=JSON.parse(i.address)
-        // i.address=d
       }
       console.log(this.data,"afterchange");
       
@@ -79,9 +86,21 @@ export class BranchsComponent implements OnInit {
   }
 
   deletefunction(e){
+    let data
     this.service.branchdeletebyid(e).subscribe(res=>{
       console.log(res);
+      data=res
+      if(data.status==204){
+        this.toaster.successToastr(data.message,"Success!")
+      }
       this.getBranchLists()
+      
+    },err=>{
+      this.toaster.errorToastr("Error while deleting branch","Oops!")
     })
+  }
+
+  clear(){
+    this.branchForm.reset()
   }
 }

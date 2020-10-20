@@ -6,7 +6,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SharedModule } from './shared/shared/shared.module';
 import {HttpClientModule} from '@angular/common/http';
-import { RegisterComponent } from './register/register.component'
+import { RegisterComponent } from './register/register.component';
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,8 +18,9 @@ import { RegisterComponent } from './register/register.component'
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
